@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 3000;
 
 const userRoutes = require('./src/routes/user.routes');
 
-app.use('/user', userRoutes);
+app.use('/system', userRoutes);
 
 app.listen(PORT, () => {
     console.log('Running on port 3000: ' + PORT);
