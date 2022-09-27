@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+ Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,0" last-zoom="1" max-obj-count="6"
+	 default-schema="public" default-owner="postgres"
+	 layers="Default layer"
+	 active-layers="0"
+	 layer-name-colors="#000000"
+	 layer-rect-colors="#b4b4b4"
+	 show-layer-names="false" show-layer-rects="false">
+<database name="new_database" is-template="false" allow-conns="true">
+</database>
+
+<schema name="public" layers="0" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<table name="User" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="680" y="380"/>
+	<column name="id" not-null="true">
+		<type name="numeric" length="8"/>
+	</column>
+	<column name="nome" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="sobrenome" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<constraint name="User_pk" type="pk-constr" table="public.&quot;User&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="physical person" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="880" y="80"/>
+	<column name="id" not-null="true">
+		<type name="numeric" length="8"/>
+	</column>
+	<column name="cpf" not-null="true">
+		<type name="numeric" length="11"/>
+	</column>
+	<constraint name="physical person_pk" type="pk-constr" table="public.&quot;physical person&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Legal_person" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="420" y="80"/>
+	<column name="id" not-null="true">
+		<type name="numeric" length="8"/>
+	</column>
+	<column name="cnpj" not-null="true">
+		<type name="numeric" length="14"/>
+	</column>
+	<constraint name="Legal_person_pk" type="pk-constr" table="public.&quot;Legal_person&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="physical person_has_one_User" type="rel11" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#645733"
+	 src-table="public.&quot;User&quot;"
+	 dst-table="public.&quot;physical person&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="User_has_many_Legal_person" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#9b2798"
+	 src-table="public.&quot;User&quot;"
+	 dst-table="public.&quot;Legal_person&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="Descriptive" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1200" y="380"/>
+	<column name="id" not-null="true">
+		<type name="numeric" length="8"/>
+	</column>
+	<constraint name="Descriptive_pk" type="pk-constr" table="public.&quot;Descriptive&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="User_has_many_Descriptive" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#4e9901"
+	 src-table="public.&quot;User&quot;"
+	 dst-table="public.&quot;Descriptive&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="Teste" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="340" y="580"/>
+	<column name="id" not-null="true">
+		<type name="numeric" length="4"/>
+	</column>
+	<column name="nome" not-null="true">
+		<type name="varchar" length="10"/>
+	</column>
+	<constraint name="Teste_pk" type="pk-constr" table="public.&quot;Teste&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+</dbmodel>
