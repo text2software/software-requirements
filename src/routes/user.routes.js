@@ -39,16 +39,27 @@ router.post("/newUser", async (req, res) => {
 
         const { nome, sobrenome, cpf, cnpj } = req.body;
 
-        let sql = "INSERT INTO cliente (nome, sobrenome) VALUES ($1, $2)";
+        let sql = `
+            INSERT INTO cliente (nome, sobrenome) 
+            VALUES ($1, $2) RETURNING id
+        `;
 
-        db.query(sql, [nome, sobrenome]);
+        const { 
+            rows : [{ id : user_id }] 
+        } = await db.query(sql, [nome, sobrenome]);
 
-        const id_cliente = 3;
-
+        
         if (cpf === null) {        
-            sql = `INSERT INTO pessoa_juridica (cnpj, id_cliente) VALUES (${cnpj}, ${id_cliente})`;
+            console.log(user_id);
+            sql = `
+                INSERT INTO pessoa_juridica (cnpj, id_cliente) 
+                VALUES (${cnpj}, ${user_id})`
+            ;
         } else {
-            sql = `INSERT INTO pessoa_fisica (cpf, id_cliente) VALUES (${cpf}, ${id_cliente})`;
+            sql = `
+                INSERT INTO pessoa_fisica (cpf, id_cliente) 
+                VALUES (${cpf}, ${user_id})
+            `;
         }
         
         db.query(sql);
@@ -128,7 +139,11 @@ router.get('/users', async (req, res) => {
 
     try {
 
-        const sql = 'SELECT * FROM cliente';
+        const sql = `
+            SELECT C.id, C.nome, C.sobrenome, F.cpf, J.cnpj 
+            FROM cliente C LEFT JOIN pessoa_fisica F ON C.id = F.id_cliente      
+            LEFT JOIN pessoa_juridica J ON C.id = J.id_cliente
+        `;
 
         const { rows } = await db.query(sql);
     

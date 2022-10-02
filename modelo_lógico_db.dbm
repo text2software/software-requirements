@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,0" last-zoom="0.85" max-obj-count="8"
+<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="233,690" last-zoom="1.1" max-obj-count="15"
 	 default-schema="public" default-owner="postgres"
 	 layers="Default layer"
 	 active-layers="0"
@@ -35,7 +35,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="cliente" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="720" y="380"/>
+	<position x="700" y="320"/>
 	<column name="id" not-null="true" sequence="public.cliente_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -53,7 +53,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="pessoa_juridica" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="720" y="120"/>
+	<position x="340" y="120"/>
 	<column name="id" not-null="true" sequence="public.pessoa_juridica_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -83,7 +83,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="descritivo" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1160" y="380"/>
+	<position x="1140" y="380"/>
 	<column name="id" not-null="true" sequence="public.descritivo_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -137,7 +137,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="requisito" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1160" y="640"/>
+	<position x="1160" y="720"/>
 	<column name="id" not-null="true" sequence="public.requisito_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -155,46 +155,162 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 dst-table="public.requisito"
 	 src-required="false" dst-required="false"/>
 
-<table name="funcional" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+<sequence name="funcional_id_seq" cycle="false" start="1" increment="1" min-value="-2147483648" max-value="2147483647" cache="1">
+	<schema name="public"/>
+</sequence>
+
+<sequence name="nao_funcional_id_seq" cycle="false" start="1" increment="1" min-value="-2147483648" max-value="2147483647" cache="1">
+	<schema name="public"/>
+</sequence>
+
+<table name="funcional" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="720" y="640"/>
-	<column name="id" not-null="true">
-		<type name="serial" length="0"/>
+	<position x="1140" y="1080"/>
+	<column name="id" not-null="true" sequence="public.funcional_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="codigo" not-null="true">
+		<type name="varchar" length="5"/>
+	</column>
+	<column name="descricao" not-null="true">
+		<type name="varchar" length="500"/>
+	</column>
+	<column name="include/extend">
+		<type name="varchar" length="50"/>
 	</column>
 	<constraint name="funcional_pk" type="pk-constr" table="public.funcional">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
-<table name="nao_funcional" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+<sequence name="entidade_der_id_seq" cycle="false" start="1" increment="1" min-value="-2147483648" max-value="2147483647" cache="1">
+	<schema name="public"/>
+</sequence>
+
+<table name="entidade_der" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1140" y="920"/>
-	<column name="id" not-null="true">
-		<type name="serial" length="0"/>
+	<position x="860" y="620"/>
+	<column name="id" not-null="true" sequence="public.entidade_der_id_seq">
+		<type name="integer" length="0"/>
 	</column>
-	<constraint name="nao_funcional_pk" type="pk-constr" table="public.nao_funcional">
+	<column name="nome_entidade" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<constraint name="entidade_der_pk" type="pk-constr" table="public.entidade_der">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
-<relationship name="funcional_has_one_requisito" type="rel11" layers="0"
+<sequence name="atributos_der_id_seq" cycle="false" start="1" increment="1" min-value="-2147483648" max-value="2147483647" cache="1">
+	<schema name="public"/>
+</sequence>
+
+<sequence name="atributos_id_seq" cycle="false" start="1" increment="1" min-value="-2147483648" max-value="2147483647" cache="1">
+	<schema name="public"/>
+</sequence>
+
+<table name="atributos" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="680" y="920"/>
+	<column name="id" not-null="true" sequence="public.atributos_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="atributo" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="atributos_pk" type="pk-constr" table="public.atributos">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="entidade_der_has_many_atributos" type="rel1n" layers="0"
 	 src-col-pattern="{sc}_{st}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
-	 custom-color="#f176a6"
+	 custom-color="#31ea25"
+	 src-table="public.entidade_der"
+	 dst-table="public.atributos"
+	 src-required="false" dst-required="false"/>
+
+<sequence name="caso_de_uso_id_seq" cycle="false" start="1" increment="1" min-value="-2147483648" max-value="2147483647" cache="1">
+	<schema name="public"/>
+</sequence>
+
+<table name="caso_de_uso" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="340" y="420"/>
+	<column name="id" not-null="true" sequence="public.caso_de_uso_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="caso" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<constraint name="caso_de_uso_pk" type="pk-constr" table="public.caso_de_uso">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="caso_de_uso_has_one_entidade_der" type="rel11" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#ed8896"
+	 src-table="public.entidade_der"
+	 dst-table="public.caso_de_uso"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="requisito_has_many_funcional" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#20764d"
 	 src-table="public.requisito"
 	 dst-table="public.funcional"
 	 src-required="false" dst-required="false"/>
 
-<relationship name="nao_funcional_has_one_requisito" type="rel11" layers="0"
+<relationship name="entidade_der_has_one_funcional" type="rel11" layers="0"
 	 src-col-pattern="{sc}_{st}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
-	 custom-color="#2472bb"
-	 src-table="public.requisito"
-	 dst-table="public.nao_funcional"
+	 custom-color="#18acf4"
+	 src-table="public.funcional"
+	 dst-table="public.entidade_der"
+	 src-required="false" dst-required="false"/>
+
+<sequence name="crud_id_seq" cycle="false" start="1" increment="1" min-value="-2147483648" max-value="2147483647" cache="1">
+	<schema name="public"/>
+</sequence>
+
+<table name="crud" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="360" y="760"/>
+	<column name="id" not-null="true" sequence="public.crud_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="operacao" not-null="true">
+		<type name="varchar" length="10"/>
+	</column>
+	<constraint name="crud_pk" type="pk-constr" table="public.crud">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="get/set_id_seq" cycle="false" start="1" increment="1" min-value="-2147483648" max-value="2147483647" cache="1">
+	<schema name="public"/>
+</sequence>
+
+<relationship name="caso_de_uso_has_many_crud" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#8a7fb1"
+	 src-table="public.caso_de_uso"
+	 dst-table="public.crud"
 	 src-required="false" dst-required="false"/>
 
 </dbmodel>
