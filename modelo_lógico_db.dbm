@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="496,138" last-zoom="1.55" max-obj-count="4"
+<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,0" last-zoom="0.85" max-obj-count="8"
 	 default-schema="public" default-owner="postgres"
 	 layers="Default layer"
 	 active-layers="0"
@@ -35,7 +35,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="cliente" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="680" y="380"/>
+	<position x="720" y="380"/>
 	<column name="id" not-null="true" sequence="public.cliente_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -53,7 +53,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="pessoa_juridica" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="440" y="80"/>
+	<position x="720" y="120"/>
 	<column name="id" not-null="true" sequence="public.pessoa_juridica_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -68,7 +68,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="pessoa_fisica" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="880" y="80"/>
+	<position x="1120" y="120"/>
 	<column name="id" not-null="true" sequence="public.pessoa_fisica_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -80,16 +80,27 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="descritivo" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+<table name="descritivo" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1160" y="480"/>
+	<position x="1160" y="380"/>
 	<column name="id" not-null="true" sequence="public.descritivo_id_seq">
 		<type name="integer" length="0"/>
+	</column>
+	<column name="texto" not-null="true">
+		<type name="varchar" length="5000"/>
 	</column>
 	<constraint name="Descriptive_pk" type="pk-constr" table="public.descritivo">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_cliente" index="2"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="cliente_fk" index="1"/>
+	</customidxs>
 </table>
 
 <relationship name="cliente_has_many_pessoa_juridica" type="rel1n" layers="0"
@@ -117,6 +128,73 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 custom-color="#606545"
 	 src-table="public.cliente"
 	 dst-table="public.descritivo"
+	 src-required="false" dst-required="false"/>
+
+<sequence name="requisito_id_seq" cycle="false" start="1" increment="1" min-value="-2147483648" max-value="2147483647" cache="1">
+	<schema name="public"/>
+</sequence>
+
+<table name="requisito" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1160" y="640"/>
+	<column name="id" not-null="true" sequence="public.requisito_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="requisito_pk" type="pk-constr" table="public.requisito">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="requisito_has_one_descritivo" type="rel11" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#f8d51d"
+	 src-table="public.descritivo"
+	 dst-table="public.requisito"
+	 src-required="false" dst-required="false"/>
+
+<table name="funcional" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="720" y="640"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<constraint name="funcional_pk" type="pk-constr" table="public.funcional">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="nao_funcional" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1140" y="920"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<constraint name="nao_funcional_pk" type="pk-constr" table="public.nao_funcional">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="funcional_has_one_requisito" type="rel11" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#f176a6"
+	 src-table="public.requisito"
+	 dst-table="public.funcional"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="nao_funcional_has_one_requisito" type="rel11" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#2472bb"
+	 src-table="public.requisito"
+	 dst-table="public.nao_funcional"
 	 src-required="false" dst-required="false"/>
 
 </dbmodel>

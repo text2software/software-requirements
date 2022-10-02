@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser')
 const db = require("../config/database");
+// software_requirements
 
 router.use(bodyParser.json());
 
@@ -36,20 +37,69 @@ router.post("/newUser", async (req, res) => {
 
     try {
 
-        const { nome, sobrenome } = req.body;
+        const { nome, sobrenome, cpf, cnpj } = req.body;
 
-        const sql = "INSERT INTO cliente (nome, sobrenome) VALUES ($1, $2)";
+        let sql = "INSERT INTO cliente (nome, sobrenome) VALUES ($1, $2)";
 
         db.query(sql, [nome, sobrenome]);
 
-        res.status(201).send({
+        const id_cliente = 3;
 
+        if (cpf === null) {        
+            sql = `INSERT INTO pessoa_juridica (cnpj, id_cliente) VALUES (${cnpj}, ${id_cliente})`;
+        } else {
+            sql = `INSERT INTO pessoa_fisica (cpf, id_cliente) VALUES (${cpf}, ${id_cliente})`;
+        }
+        
+        db.query(sql);
+
+        res.status(201).send({
             message: "Added successfully!",
-            body: {
-                user: { nome, sobrenome }
-            },
-            
+            body: req.body,            
         });
+
+    } catch(error) {
+
+        res.send(error);
+
+    } 
+    
+});
+
+router.post("/newDescribed", async (req, res) => {
+
+    try {
+
+        const { texto, id_cliente } = req.body;
+
+        let sql = "INSERT INTO descritivo (texto, id_cliente) VALUES ($1, $2)";
+        
+        db.query(sql, [texto, id_cliente]);
+
+        res.status(201).send({
+            message: "Added successfully!",
+            body: req.body,            
+        });
+
+    } catch(error) {
+
+        res.send(error);
+
+    } 
+    
+});
+
+router.get("/myDescribed", async (req, res) => {
+
+    try {
+        
+        const { id_cliente } = req.body;
+
+        const sql = `SELECT * FROM descritivo WHERE id_cliente = ${id_cliente}`;
+
+        const { rows } = await db.query(sql);
+    
+        res.send(rows);
 
     } catch(error) {
 
@@ -79,6 +129,36 @@ router.get('/users', async (req, res) => {
     try {
 
         const sql = 'SELECT * FROM cliente';
+
+        const { rows } = await db.query(sql);
+    
+        res.send(rows);
+
+    } catch(error) {
+
+        res.send(error);
+
+    }
+
+});
+
+router.get('/userData', async (req, res) => { 
+
+    try {
+
+        const { cpf, cnpj } = req.body;
+
+        let sql = null;
+
+        if (cpf === null) {
+            sql = `SELECT C.nome, C.sobrenome, J.cnpj FROM 
+                cliente C INNER JOIN pessoa_juridica J 
+                ON C.id = J.id_cliente AND J.cnpj = ${cnpj}`; 
+        } else {
+            sql = `SELECT C.nome, C.sobrenome, F.cpf FROM 
+                cliente C INNER JOIN pessoa_fisica F 
+                ON C.id = F.id_cliente AND F.cpf = ${cpf}`;        
+        }
 
         const { rows } = await db.query(sql);
     
