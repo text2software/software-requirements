@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/functionalRequirement.css">
+    <script src='/js/scripts.js' type='text/javascript'></script>
+    <title>Create User</title>
+</head>
+<body>
+    <form action="insertDescription" method="post">
+        <div class="container">
+            <label class="title">Requisitos funcionais</label>
+            <div class="item">
+                <label class="rf_codigo">RFOO1</label>
+                    
+                <input type="text" class="input" placeholder="Breve descrição" value="<%= data.nome %>">
+                
+                <input type="submit" class="add" value="+" onclick=""/>
+            </div>
+            <div class="items">
+                <% for (let item of [1,2,3,4,5, 6, 7, 8, 9]) { %>
+                    <div class="item">
+                        <label class="rf_codigo">RFOO1</label>                        
+                        <input type="text" class="input" placeholder="Breve descrição" value="<%= data.nome %>">                        
+                        <input type="submit" class="remove_item" value="-" onclick=""/>
+                    </div>
+                <%} %>
+                
+            </div>
+            <br>
+            <input type="submit" class="button" value="Adicionar" />
+        </div>
+    </form>
+</body>
+</html>

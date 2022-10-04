@@ -3,10 +3,10 @@ const update = () => {
     let option = select.options[select.selectedIndex].text;
     
     if (option == "Pessoa Jurídica") {
-        document.getElementById("physical_person").style.visibility = "hidden"
-        document.getElementById("legal_person").style.visibility = "visible"
+        document.getElementById('cpf_cnpj').placeholder = '00.000.000/0000-00';
+        document.getElementById('label_cpf_cnpj').textContent = 'CNPJ';
     } else {
-        document.getElementById("physical_person").style.visibility = "visible"
-        document.getElementById("legal_person").style.visibility = "hidden"
+        document.getElementById('cpf_cnpj').placeholder = '000.000.000-00';
+        document.getElementById('label_cpf_cnpj').textContent = 'CPF';
     }
 }

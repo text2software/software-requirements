@@ -1,43 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/css/createUser.css">
-    <script src='/js/scripts.js' type='text/javascript'></script>
-    <title>Create User</title>
-</head>
-<body>
-    <form action="newUser" method="post">
-        <div>
-            <label>Nome</label>
-            <input type="text" value="<%= data.nome %>"> 
-        </div>
-        <div>
-            <label>Sobrenome</label>
-            <input type="text" value="<%= data.sobrenome %>"> 
-        </div>        
-        <label for="cars">Tipo:</label>
-        <select id="people_type" onChange="update()">
-            <option value="volvo">Pessoa Física</option>
-            <option value="saab">Pessoa Jurídica</option>
-        </select>
-
-        <div>
-            <div id="physical_person">
-                <label>CPF</label>
-                <input type="number" value="<%= data.cpf %>"> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/css/createUser.css">
+        <script src='/js/scripts.js' type='text/javascript'></script> 
+        <title>Create User</title>
+    </head>
+    <body>
+        <form action="newUser" method="post">
+            <div class="container">
+                <label class="title">Novo Cliente</label>
+                <div style="display: flex; flex-direction:column;">
+                    <label class="label">Nome</label>
+                    <input type="text" class="input" placeholder="Nome" value="<%= data.nome %>"> 
+                </div>
+                <div style="display: flex; flex-direction:column;">
+                    <label class="label">Sobrenome</label>
+                    <input type="text" class="input" placeholder="Sobrenome" value="<%= data.sobrenome %>"> 
+                </div>      
+                <div style="display: flex; flex-direction:column;">
+                    <label class="label">Tipo</label>  
+                    <select id="people_type" class="input" onChange="update()">
+                        <option>Pessoa Física</option>
+                        <option>Pessoa Jurídica</option>
+                    </select>
+                </div>
+        
+                <div style="display: flex; flex-direction:column;">
+                    <label id="label_cpf_cnpj" class="label">CPF</label>
+                    <input type="text" minlength="11" maxlength="14" id="cpf_cnpj" class="input" placeholder="000.000.000-00" value="<%= data.cpf_cnpj %>"> 
+                </div>
+        
+                <br>
+                <input type="submit" class="button" value="Cadastrar" />
             </div>
-    
-            <div id="legal_person" style="visibility: hidden;">
-                <label>CNPJ</label>
-                <input type="number" value="<%= data.cnpj %>"> 
-            </div>
-        </div>
-
-        <br>
-        <input type="submit" value="Cadastrar" />
-    </form>
-</body>
+        </form>
+    </body>
 </html>

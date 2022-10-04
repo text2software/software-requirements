@@ -37,37 +37,41 @@ router.post("/newUser", async (req, res) => {
 
     try {
 
-        const { nome, sobrenome, cpf, cnpj } = req.body;
+        console.log(req.body);
 
-        let sql = `
-            INSERT INTO cliente (nome, sobrenome) 
-            VALUES ($1, $2) RETURNING id
-        `;
+        // const { nome, sobrenome, cpf_cnpj } = req.body;
 
-        const { 
-            rows : [{ id : user_id }] 
-        } = await db.query(sql, [nome, sobrenome]);
+        // let sql = `
+        //     INSERT INTO cliente (nome, sobrenome) 
+        //     VALUES ($1, $2) RETURNING id
+        // `;
+
+        // const { 
+        //     rows : [{ id : user_id }] 
+        // } = await db.query(sql, [nome, sobrenome]);
 
         
-        if (cpf === null) {        
-            console.log(user_id);
-            sql = `
-                INSERT INTO pessoa_juridica (cnpj, id_cliente) 
-                VALUES (${cnpj}, ${user_id})`
-            ;
-        } else {
-            sql = `
-                INSERT INTO pessoa_fisica (cpf, id_cliente) 
-                VALUES (${cpf}, ${user_id})
-            `;
-        }
+        // if (cpf === null) {        
+        //     console.log(user_id);
+        //     sql = `
+        //         INSERT INTO pessoa_juridica (cnpj, id_cliente) 
+        //         VALUES (${cnpj}, ${user_id})`
+        //     ;
+        // } else {
+        //     sql = `
+        //         INSERT INTO pessoa_fisica (cpf, id_cliente) 
+        //         VALUES (${cpf}, ${user_id})
+        //     `;
+        // }
         
-        db.query(sql);
+        // db.query(sql);
 
-        res.status(201).send({
-            message: "Added successfully!",
-            body: req.body,            
-        });
+        // res.status(201).send({
+        //     message: "Added successfully!",
+        //     body: req.body,            
+        // });
+
+        res.redirect("insertDescription");
 
     } catch(error) {
 
@@ -75,6 +79,34 @@ router.post("/newUser", async (req, res) => {
 
     } 
     
+});
+
+router.get("/insertDescription", async (req, res) => {
+
+    res.render("pages/insertDescription.ejs", { data: {} });
+        
+});
+
+router.post("/insertDescription", async (req, res) => {
+
+    try {
+
+        console.log(req.body);
+
+        res.redirect("functionalRequirement");
+
+    } catch(error) {
+
+        res.send(error);
+
+    } 
+    
+});
+
+router.get("/functionalRequirement", async (req, res) => {
+
+    res.render("pages/functionalRequirement.ejs", { data: {} });
+        
 });
 
 router.post("/newDescribed", async (req, res) => {
