@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/requirementsTable.css">
+    <script src='/js/scripts.js' type='text/javascript'></script>
+    <title>Create User</title>
+</head>
+<body>
+    <form action="addEntity" method="post">
+        <div style="width: 600px; height: 500px; margin-left: 50px">
+            <label class="descriptive_title">Descritivo do software</label>
+            <div style="margin-top: 20px;">
+                <h4 class="descriptive_text">
+                    O sistema deve ter funcionalidades sobre processamento (inserção, edição,
+                    exclusão e consultas individuais e coletivas), com um descritivo do software,
+                    requisitos de usuário, requisitos de sistemas, requisitos funcionais (usar método
+                    da semântica do requisito) e requisitos não funcionais, com código, resumo de
+                    casos de uso, descrição do requisito. Gerar tabelas de requisitos, casos de uso
+                    (textual), com include’s e extend’s. Armazenar modelo de dados lógico com
+                    endidades, atributos – tipos/tamanho, relacionamento. Armazenar Matriz de
+                    Barramento Adaptada com requisitos casos de uso, entidades, métodos get-set e
+                    ações funcionais, indicação de CRUD, indicação de transação por SQL e
+                    associações entre classes/objetos (1:1, 1:M, M:N). Todas as etapas devem ser
+                    evolucionárias com possibilidades de geração de protótipos textuais e
+                    especificação de classes com atributos e métodos. Armazenar plano de teste de
+                    software utilizando as técnicas de complexidade ciclomática, teste fluxo de
+                    dados, teste de mutantes, teste da assinatura estrutural.
+                </h4>
+            </div>
+        </div>
+        <div class="container">
+            <label class="title">Grade de requisitos</label>
+
+            <div class="container_grill_head">
+                <label style="margin-left: 65px;"></label>  
+                <div class="grill_head">
+                    Descrição do RF
+                </div>   
+                <div class="grill_head" style="width: 400px;">
+                    Obj relacional
+                </div>  
+                <div class="grill_head" style="width: 200px;">
+                    CRUD
+                </div>  
+                <div class="grill_head" style="width: 800px;">
+                    SQL
+                </div>          
+                <div class="grill_head" style="margin-right: 10px; display: flex; justify-content: center;">
+                    Entidade
+                </div>         
+                
+            </div>
+            <div class="items">
+                <% for (const item of [1,2,3,4,5, 6, 7, 8, 9]) { %>
+                    <div class="item">
+                        <label class="rf_codigo">RFOO1</label>  
+                        <div class="input">
+                            Breve descrição
+                        </div>   
+                        <div class="input" style="width: 400px; justify-content: center;">
+                            SET, GET
+                        </div>  
+                        <div class="input" style="width: 200px; justify-content: center;">
+                            CR
+                        </div>  
+                        <div class="input" style="width: 800px; justify-content: center;">
+                            Insert, Select, Update, Delete
+                        </div>          
+                        <div class="input">
+                            Cliente
+                        </div>         
+                        
+                    </div>
+                <%} %>
+                
+            </div>
+            <br>
+        </div>
+    </form>
+</body>
+</html>

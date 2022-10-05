@@ -109,6 +109,50 @@ router.get("/functionalRequirement", async (req, res) => {
         
 });
 
+router.post("/functionalRequirement", async (req, res) => {
+
+    try {
+
+        console.log(req.body);
+
+        res.redirect("addEntity");
+
+    } catch(error) {
+
+        res.send(error);
+
+    } 
+    
+});
+
+router.get("/addEntity", async (req, res) => {
+
+    res.render("pages/addEntity.ejs", { data: {} });
+        
+});
+
+router.post("/addEntity", async (req, res) => {
+
+    try {
+
+        console.log(req.body);
+
+        res.redirect("requirementsTable");
+
+    } catch(error) {
+
+        res.send(error);
+
+    } 
+    
+});
+
+router.get("/requirementsTable", async (req, res) => {
+
+    res.render("pages/requirementsTable.ejs", { data: {} });
+        
+});
+
 router.post("/newDescribed", async (req, res) => {
 
     try {
