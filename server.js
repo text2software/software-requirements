@@ -14,9 +14,9 @@ app.use('/js', express.static(__dirname + 'public/js'));
 
 const PORT = process.env.PORT || 3000;
 
-const userRoutes = require('./src/routes/user.routes');
+const userAuth = require('./src/routes/auth.routes');
 
-app.use('/system', userRoutes);
+app.use('/user', userAuth);
 
 app.listen(PORT, () => {
     console.log('Running on port 3000: ' + PORT);

@@ -18,14 +18,3 @@ client.connect((err) => {
 });
 
 module.exports = client;
-
-// const pgp = require('pg-promise')();
-// const db = pgp({
-// 	user: USER,
-//     host: HOST,
-//     database: DATABASE,
-//     password: PASSWORD,
-//     port: DB_PORT,
-// });
-
-// module.exports = db;
