@@ -21,3 +21,20 @@ app.use('/user', userAuth);
 app.listen(PORT, () => {
     console.log('Running on port 3000: ' + PORT);
 });
+
+//-------------------------------------------------------
+const path = require("path")
+const publicDir = path.join(__dirname, './public')
+app.use(express.static(publicDir))
+
+app.get("/", (req, res) => {
+    res.render("layout")
+})
+
+app.get("/signup", (req, res) => {
+    res.render("signup")
+})
+
+app.get("/login", (req, res) => {
+    res.render("login")
+})
