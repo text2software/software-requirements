@@ -24,7 +24,7 @@ form {
     max-height: 800px;
     height: 85%;
     max-width: 1600px;
-    width: 25%;
+    width: 90%;
     border-radius: 10px;
     box-shadow: #000000 5px 10px 20px;
 }
@@ -44,7 +44,7 @@ form {
     font-size: 45px;
     font-weight: bold;
     font-family: Ubuntu, "times new roman", times, roman, serif;
-    margin-bottom: 50px;
+    margin-bottom: 100px;
     color: #0f766e;
     text-shadow: rgb(221, 221, 221) 0.1em 0.1em 0.2em;
 }

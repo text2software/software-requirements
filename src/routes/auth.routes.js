@@ -11,7 +11,7 @@ router.get("/signup", async (req, res) => {
 
     try {
     
-        res.render("pages/signup.ejs", { data: {} });   
+        res.render("signup.ejs", { data: {} });   
 
     } catch(error) {
 
@@ -49,12 +49,16 @@ router.post('/signup', async (req, res) => {
         // Gerando o token do usuário utilizando como payload o id.
         const token = jwt.sign({ user: id });
 
-        res.send({
-            name: name,
-            email: email,
-            id: id,  
-            token
-        });
+        // res.send({
+        //     name: name,
+        //     email: email,
+        //     id: id,  
+        //     token
+        // });
+
+        res.redirect(`${id}`);
+
+        // res.send([req.body]);
 
     } catch (error) {
 
@@ -68,7 +72,7 @@ router.get("/login", async (req, res) => {
 
     try {
     
-        res.render("pages/login.ejs", { data: {} });   
+        res.render("login.ejs", { data: {} });   
 
     } catch(error) {
 
@@ -98,7 +102,11 @@ router.post('/login', async (req, res) => {
         // Gerando o tokendo do usuário
         const token = jwt.sign({ user: user[0].id });
 
-        res.send({ user, token });
+        // res.send({ user, token });
+
+        res.redirect(`${user[0].id}`);
+
+        // res.send([req.body]);
 
     } catch (error) {
 
@@ -107,6 +115,50 @@ router.post('/login', async (req, res) => {
     }
 
 });
+
+
+router.get("/:userId", async (req, res) => {
+
+    try {
+
+        const { userId } = req.params;  
+
+        let sql = 'SELECT name FROM usuario WHERE id = $1';
+
+        const { rows } = await db.query(sql, [userId]);
+    
+        res.render("home.ejs", { data: { "name": rows[0].name } }); 
+
+    } catch(error) {
+
+        res.send(error);
+
+    }
+    
+});
+
+router.post("/:userId", async (req, res) => {
+
+    try {
+
+        const { userId } = req.params;  
+        
+        const { name } = req.body;
+
+        let sql = 'UPDATE usuario SET name = $1 WHERE id = $2 ';
+
+        await db.query(sql, [name, userId]);
+
+        res.redirect(`${userId}`);
+
+    } catch(error) {
+
+        res.send(error);
+
+    }
+    
+});
+
 
 
 
