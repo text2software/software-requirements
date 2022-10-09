@@ -7,6 +7,20 @@ const db = require("../config/database");
 
 router.use(bodyParser.json());
 
+router.get("/signup", async (req, res) => {
+
+    try {
+    
+        res.render("pages/signup.ejs", { data: {} });   
+
+    } catch(error) {
+
+        res.send(error);
+
+    }
+    
+});
+
 router.post('/signup', async (req, res) => {
 
     try {
@@ -49,6 +63,20 @@ router.post('/signup', async (req, res) => {
     }
 
 })
+
+router.get("/login", async (req, res) => {
+
+    try {
+    
+        res.render("pages/login.ejs", { data: {} });   
+
+    } catch(error) {
+
+        res.send(error);
+
+    }
+    
+});
 
 router.post('/login', async (req, res) => {
     
