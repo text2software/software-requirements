@@ -159,7 +159,19 @@ router.post("/:userId", async (req, res) => {
     
 });
 
+router.post('/teste', async (req, res) => {
+    
+    try {
 
+        res.send(["Olá"]);
+
+    } catch (error) {
+
+        res.send(error);
+
+    }
+
+});
 
 
 module.exports = router

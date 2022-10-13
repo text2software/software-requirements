@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,0" last-zoom="1" max-obj-count="4"
+<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,0" last-zoom="1" max-obj-count="9"
 	 default-schema="public" default-owner="postgres"
 	 layers="Default layer"
 	 active-layers="0"
@@ -23,7 +23,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="usuario" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="520" y="220"/>
+	<position x="400" y="180"/>
 	<column name="id" not-null="true" sequence="public.usuario_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -46,5 +46,220 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
+
+<sequence name="requisito_de_usuario_id_seq" cycle="false" start="1" increment="1" min-value="-2147483648" max-value="2147483647" cache="1">
+	<schema name="public"/>
+</sequence>
+
+<table name="requisito_de_usuario" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="420" y="820"/>
+	<column name="id" not-null="true" sequence="public.requisito_de_usuario_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="requisito" not-null="true">
+		<type name="varchar" length="200"/>
+	</column>
+	<constraint name="requisito_de_usuario_pk" type="pk-constr" table="public.requisito_de_usuario">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="projeto_id_seq" cycle="false" start="1" increment="1" min-value="-2147483648" max-value="2147483647" cache="1">
+	<schema name="public"/>
+</sequence>
+
+<table name="projeto" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="460" y="520"/>
+	<column name="id" not-null="true" sequence="public.projeto_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="titulo">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="descritivo" not-null="true">
+		<type name="varchar" length="500"/>
+	</column>
+	<constraint name="projeto_pk" type="pk-constr" table="public.projeto">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="usuario_has_many_projeto" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#a2fd19"
+	 src-table="public.usuario"
+	 dst-table="public.projeto"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="projeto_has_many_requisito_de_usuario" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#c10119"
+	 src-table="public.projeto"
+	 dst-table="public.requisito_de_usuario"
+	 src-required="false" dst-required="false"/>
+
+<sequence name="requisito_funcional_id_seq" cycle="false" start="1" increment="1" min-value="-2147483648" max-value="2147483647" cache="1">
+	<schema name="public"/>
+</sequence>
+
+<table name="requisito_funcional" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1040" y="820"/>
+	<column name="id" not-null="true" sequence="public.requisito_funcional_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="requisito" not-null="true">
+		<type name="varchar" length="200"/>
+	</column>
+	<constraint name="requisito_funcional_pk" type="pk-constr" table="public.requisito_funcional">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="projeto_has_many_requisito_funcional" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#0a5a76"
+	 src-table="public.projeto"
+	 dst-table="public.requisito_funcional"
+	 src-required="false" dst-required="false"/>
+
+<sequence name="crud_id_seq" cycle="false" start="1" increment="1" min-value="-2147483648" max-value="2147483647" cache="1">
+	<schema name="public"/>
+</sequence>
+
+<table name="crud" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="740" y="400"/>
+	<column name="id" not-null="true" sequence="public.crud_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="operacao" not-null="true">
+		<type name="varchar" length="10"/>
+	</column>
+	<constraint name="crud_pk" type="pk-constr" table="public.crud">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="requisito_funcional_has_many_crud" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#238cb8"
+	 src-table="public.requisito_funcional"
+	 dst-table="public.crud"
+	 src-required="false" dst-required="false"/>
+
+<sequence name="metodo_id_seq" cycle="false" start="1" increment="1" min-value="-2147483648" max-value="2147483647" cache="1">
+	<schema name="public"/>
+</sequence>
+
+<table name="metodo" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1160" y="400"/>
+	<column name="id" not-null="true" sequence="public.metodo_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="nome" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<constraint name="metodo_pk" type="pk-constr" table="public.metodo">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_requisito_funcional" index="2"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="requisito_funcional_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="requisito_funcional_has_many_metodo" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#bc5964"
+	 src-table="public.requisito_funcional"
+	 dst-table="public.metodo"
+	 src-required="false" dst-required="false"/>
+
+<sequence name="sql_id_seq" cycle="false" start="1" increment="1" min-value="-2147483648" max-value="2147483647" cache="1">
+	<schema name="public"/>
+</sequence>
+
+<table name="sql" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="920" y="120"/>
+	<column name="id" not-null="true" sequence="public.sql_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="operacao" not-null="true">
+		<type name="varchar" length="10"/>
+	</column>
+	<constraint name="sql_pk" type="pk-constr" table="public.sql">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_crud" index="2"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="crud_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="crud_has_many_sql" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#53ebf4"
+	 src-table="public.crud"
+	 dst-table="public.sql"
+	 src-required="false" dst-required="false"/>
+
+<sequence name="get_set_id_seq" cycle="false" start="1" increment="1" min-value="-2147483648" max-value="2147483647" cache="1">
+	<schema name="public"/>
+</sequence>
+
+<table name="get_set" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1220" y="120"/>
+	<column name="id" not-null="true" sequence="public.get_set_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="tipo" not-null="true">
+		<type name="varchar" length="3"/>
+	</column>
+	<constraint name="get_set_pk" type="pk-constr" table="public.get_set">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="metodo_has_many_get_set" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#021214"
+	 src-table="public.metodo"
+	 dst-table="public.get_set"
+	 src-required="false" dst-required="false"/>
 
 </dbmodel>
